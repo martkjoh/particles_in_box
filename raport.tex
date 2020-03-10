@@ -1,4 +1,6 @@
 \documentclass{article}
+\usepackage{physics}
+\usepackage{amsmath}
 
 \title{Computatonal physics - Statistical Physics}
 \author{Martin Johnsrud}
@@ -8,4 +10,34 @@
     
     \section*{Introduction}
     By numerically integrating Newtons equation of motion og many particles, confined to a box and interacting via the Leonard-Jones potential, it is possible to see the emergence of statistical behvior like the Maxwell-Boltzmann distribution. In this exercice, we explor this behavior, and ... (more to come)
+
+    \section*{Single particel}
+    A single particel with position $\vec x = (x_1, x_2)$ in a box is modeled in a potential 
+    \begin{equation*}
+        V_w(\vec x) = 
+        \begin{cases}
+            \frac{1}{2}K(r - R)^2, & r > R \\
+            0, & r < R,
+        \end{cases}
+    \end{equation*}
+    where $r = |\vec x|$. This leads to a force 
+    \begin{equation*}
+        \vec F_w(\vec x) = -\nabla V_w(\vec x) = 
+        \begin{cases}
+            -K(r - R)\hat x, & r>R \\
+            0, & r<R.
+        \end{cases}
+    \end{equation*}
+
+    \section*{$N$ particles}
+    When moddeling $N$ particles $\{ \vec x_k\} = \{ (x_1^{(k)}, x_2^{(k)}) \}$, each one of them is subject to the force from the potential $V_w(\vec x_k)$, as well as a modified Leonard-Jones potential the interaction potential. The potential felt by particle $k$ is then
+    \begin{equation*}
+        V_k(\vec x_j) = 
+        \sum_{r_{kj}<a}\epsilon \bigg[ \bigg( \frac{a}{r_{kj}}\bigg)^{12} - 2\bigg(\frac{a}{r_{kj}}\bigg)^{6} + 1 \bigg]
+    \end{equation*}
+    Here, $r_{kj} = |\vec x_k - \vec x_j|$. The force on particel $k$ by this potential is
+    \begin{equation*}
+        F_k (\vec x_j) = -\nabla_k V(\vec x_j) = \sum_{r_{kj}<a} 24 \epsilon \bigg[ \bigg( \frac{a}{r_{kj}}\bigg)^{12} - \bigg(\frac{a}{r_{kj}}\bigg)^{6}\bigg] \frac{\hat x_{kj}}{r_{kj}},
+    \end{equation*}
+    where $\hat x_{kj} = (\vec x_k - \vec x_j) / r_{kj}$
 \end{document}
