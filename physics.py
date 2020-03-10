@@ -24,13 +24,14 @@ def V_i(k, x0):
     r_kj = sqrt(dot(x_kj, x_kj))
     indx = r_kj<a
     indx[k] = False
-    E = eps*((a/r_kj[indx])**12 - 2*(a/r_kj[indx])**6 + 1)
+    ar = a/r_kj[indx]
+    E = eps*(ar**12 - 2*ar**6 + 1)
     return np.sum(E)
 
 def E(x):
     energy = V_w(x[0]) + 1/2*dot(x[1], x[1])
     for k in range(len(energy)):
-        energy[k] += V_i(k, x[0])
+        energy[k] += 1/2 * V_i(k, x[0])
     return np.sum(energy)
 
 def F_w(x0):
@@ -48,8 +49,8 @@ def F_i(k, x0):
     r_kj = sqrt(dot(x_kj, x_kj))
     indx = r_kj<a
     indx[k] = False
-    absF_kj = 12*eps*((a/r_kj[indx])**12 - (a/r_kj[indx])**6)
-    F_kj = absF_kj*x_kj[:, indx]/r_kj[indx]**2
+    ar = a/r_kj[indx]
+    F_kj = 12*eps*(ar**12 - ar**6)*x_kj[:, indx]/r_kj[indx]**2
     return np.einsum("ik -> i", F_kj)
 
 def sumF(x0):
