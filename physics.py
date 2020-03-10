@@ -16,11 +16,11 @@ def V_w(x):
     E[indx] = K/2 * (r[indx] - R)**2
     return E
 
-def V_i(k, x):
-    x_kj = np.zeros_like(x[0])
-    N = len(x[0, 0])
+def V_i(k, x0):
+    x_kj = np.zeros_like(x0)
+    N = len(x0[0])
     for i in range(N):
-        x_kj[:, i] = x[0, :, k] - x[0, :, i]
+        x_kj[:, i] = x0[:, k] - x0[:, i]
     r_kj = sqrt(dot(x_kj, x_kj))
     indx = r_kj<a
     indx[k] = False
@@ -31,10 +31,17 @@ def V_i(k, x):
 def E_k(x):
     return 1/2*dot(x[1], x[1])
 
-def totalV_i(x):
-    energy = np.zeros_like(x[0, 0])
-    for k in range(len(energy)):
-        energy[k] += 1/2 * V_i(k, x[0])
+def sumE(x):
+    V = np.zeros_like(x[0, 0])
+    for k in range(len(V)):
+        V[k] += 1/2 * V_i(k, x[0])
+    return E_k(x) + V_w(x) + V
+
+
+def getEnergy(xt, E):
+    energy = np.zeros_like(xt[:, 0, 0, :])
+    for t in range(len(energy[:, 0])):
+        energy[t] = E(xt[t])
     return energy
 
 def F_w(x0):
