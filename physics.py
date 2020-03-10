@@ -2,7 +2,7 @@ import numpy as np
 from numpy import pi, sqrt
 
 R = 5
-a = 1
+a = 0.8
 eps = 0.5
 K = 10
 
