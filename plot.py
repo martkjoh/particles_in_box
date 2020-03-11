@@ -2,7 +2,7 @@ import numpy as np
 from numpy import pi, sin, cos, sqrt
 from matplotlib import pyplot as plt
 from matplotlib import cm
-from physics import sumE, getEnergy, R
+from physics import sumE, getEnergy, R, boltzDist
 
 def plotCircle(ax):
     theta = np.linspace(0, 2*pi, 100)
@@ -23,5 +23,8 @@ def plotRelTotE(xt, T, dt, ax):
     ax.set_ylim(-0.1, 0.1)
 
 def plotVelDistrib(xt, k, ax):
-    vx, vy = xt[:, 1, :, k].T
-    ax.hist(vx, bins = 20, density = True)
+    vx, _ = xt[:, 1, :, k].T
+    ax.hist(vx, bins = 50, density = True)
+    vxCont = np.linspace(np.min(vx), np.max(vx), 100)
+    f = boltzDist(xt)(vxCont)
+    ax.plot(vxCont, f)

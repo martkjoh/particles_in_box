@@ -1,5 +1,5 @@
 import numpy as np
-from numpy import pi, sqrt
+from numpy import pi, sqrt, exp
 
 R = 5
 a = 0.8
@@ -70,11 +70,16 @@ def sumF(x0):
         f1[:, k] += F_i(k, x0)
     return f1
 
-def temp(xt):
-    v2 = xt[:, 1, 1]**2 + xt[:, 1, 0]
-    sytemAv = np.einsum("tk -> t", v2) / len(v2[0])
-    timeAv = np.sum(systeAv) / len(systemAv)
-    return timeAv/2
+def temp(x):
+    v2 = x[1, 1]**2 + x[1, 0]**2
+    v2Av = np.sum(v2) / len(v2)
+    return v2Av/2
 
-def boltxmannDistrib(x):
-    pass
+def boltzDist(xt):
+    T = 0
+    N = len(xt)
+    for i in range(N):
+        T += temp(xt[i])
+    T = T/N
+    C = 1 / sqrt(2*pi*T)
+    return lambda x: C*exp(-x**2/(2*T))
