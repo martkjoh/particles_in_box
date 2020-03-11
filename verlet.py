@@ -1,3 +1,4 @@
+from progress.bar import Bar
 import numpy as np
 from numpy import cos, sin, pi, sqrt
 from time import time
@@ -54,8 +55,12 @@ def timeEvolve(N, F, timeSteps, dt, velDist = evenVel):
 
     t = time()
     print("Integrating steps...")
+    bar = Bar("", max = 10)
     for i in range(timeSteps-1):
         xt[i+1] = verletStep(xt[i], F, dt)
+        if (i+1)%int((timeSteps-1)/10)==0:
+            bar.next()
+    bar.finish()
     t = time() - t
 
     print("Integreated {} steps of {} particels in {:f} sec.".format(timeSteps, N, t))
