@@ -1,6 +1,5 @@
 import numpy as np
-from numpy import pi, sin, cos
-from misc import loadx
+from numpy import pi, sin, cos, sqrt
 from matplotlib import pyplot as plt
 from matplotlib import cm
 from physics import sumE, getEnergy, R
@@ -10,9 +9,9 @@ def plotCircle(ax):
     ax.plot(R*cos(theta), R*sin(theta))
 
 
-def plotParticlePath(xt, ax, i, color = "b"):
-    ax.plot(xt[0, 0, 0, i], xt[0, 0, 1, i], "rx")
-    ax.plot(xt[:, 0, 0, i], xt[:, 0, 1, i], color = color)
+def plotParticlePath(xt, ax, k, color = "b"):
+    ax.plot(xt[0, 0, 0, k], xt[0, 0, 1, k], "rx")
+    ax.plot(xt[:, 0, 0, k], xt[:, 0, 1, k], color = color)
 
 def plotRelTotE(xt, T, dt, ax):
     timeSteps = int(T/dt)
@@ -22,3 +21,7 @@ def plotRelTotE(xt, T, dt, ax):
     relEnergy = (totEnergy - totEnergy[0]) / totEnergy[0]
     ax.plot(t, relEnergy)
     ax.set_ylim(-0.1, 0.1)
+
+def plotVelDistrib(xt, k, ax):
+    vx, vy = xt[:, 1, :, k].T
+    ax.hist(vx, bins = 20, density = True)

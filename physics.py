@@ -69,3 +69,12 @@ def sumF(x0):
     for k in range(N):
         f1[:, k] += F_i(k, x0)
     return f1
+
+def temp(xt):
+    v2 = xt[:, 1, 1]**2 + xt[:, 1, 0]
+    sytemAv = np.einsum("tk -> t", v2) / len(v2[0])
+    timeAv = np.sum(systeAv) / len(systemAv)
+    return timeAv/2
+
+def boltxmannDistrib(x):
+    pass
