@@ -36,18 +36,20 @@
             & \vec x(t + \Delta t) = \vec x(t) + \dot{\vec x}(t) \Delta t + \frac{1}{2} F\big(\vec x(t)\big) \Delta t \\
             & \dot{\vec x}(t + \Delta t) = \dot{\vec x}(t) + \frac{1}{2} \Big[\Sigma \vec F\big(\vec x(t)\big) + \Sigma \vec F\big(\vec x(t + \Delta t)\big)\Big] \Delta t^2
         \end{align*}
+        Everything is done in units defined by the parametres $K, R$ and $\epsilon$, so that mass of the particle dissapears from the equations.
+
         
-        \begin{figure}
-            
+        \begin{figure}            
+            \vspace{-30pt}
             \includegraphics[width = \textwidth]{one_particle_01}
             \includegraphics[width = \textwidth]{one_particle_005}
             \includegraphics[width = \textwidth]{one_particle_001}
-
+            \caption{The figure shows the path of a particle in the potential described in the text, integrated using different steplengths. The right side shows the relative change in energy of the particle, as a function of time. The red x marks the starting position of the particle.}
+            \label{task 1}
         \end{figure}
 
-        Everything is done in units defined by the parametres $K, R$ and $\epsilon$, so that mass of the particle dissapears from the equations.
-
         \paragraph*{}
+        Figure \ref{task 1} shows simulation series of one particle in a box, using different steplengths. The energy of the particle can be used to assess the accuracy of the particle. As there are noe dissipative forces, energy is conserved. Accurate simulations should then have very small changes in energy, $\delta E - E(0)$, relative the starting energy $E(0)$. This is plotted to the right in figure \ref{task 1}. $\Delta t = 0.01$ seems to yield sufficient accuracy, and wil be used throughout this exercise.
         
 
     \section*{$N$ particles}
@@ -60,5 +62,8 @@
         \begin{equation*}
             F_k (\vec x_j) = -\nabla_k V(\vec x_j) = \sum_{r_{kj}<a} 12 \epsilon \bigg[ \bigg( \frac{a}{r_{kj}}\bigg)^{12} - \bigg(\frac{a}{r_{kj}}\bigg)^{6}\bigg] \frac{\hat x_{kj}}{r_{kj}},
         \end{equation*}
-        where $\hat x_{kj} = (\vec x_k - \vec x_j) / r_{kj}$
+        where $\hat x_{kj} = (\vec x_k - \vec x_j) / r_{kj}$. This is, like in the case with one particle, simulated using verlet integration, only now using the force
+        \begin{equation*}
+            \Sigma \vec F_k = -\nabla_k \big( V_w(\vec x_k) + V_w(\vec x_j) \big).
+        \end{equation*}
 \end{document}
