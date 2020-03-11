@@ -37,7 +37,6 @@ def sumE(x):
         V[k] += 1/2 * V_i(k, x[0])
     return E_k(x) + V_w(x) + V
 
-
 def getEnergy(xt, E):
     energy = np.zeros_like(xt[:, 0, 0, :])
     for t in range(len(energy[:, 0])):
