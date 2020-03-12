@@ -62,8 +62,30 @@
         \begin{equation*}
             F_k (\vec x_j) = -\nabla_k V(\vec x_j) = \sum_{r_{kj}<a} 12 \epsilon \bigg[ \bigg( \frac{a}{r_{kj}}\bigg)^{12} - \bigg(\frac{a}{r_{kj}}\bigg)^{6}\bigg] \frac{\hat x_{kj}}{r_{kj}},
         \end{equation*}
-        where $\hat x_{kj} = (\vec x_k - \vec x_j) / r_{kj}$. This is, like in the case with one particle, simulated using verlet integration, only now using the force
+        where $\hat x_{kj} = (\vec x_k - \vec x_j) / r_{kj}$. This is, like in the case with one particle, simulated using verlet integration, only now using the force.
         \begin{equation*}
             \Sigma \vec F_k = -\nabla_k \big( V_w(\vec x_k) + V_w(\vec x_j) \big).
         \end{equation*}
+
+        \begin{figure}
+            
+            \vspace{-16pt}
+            \includegraphics[width = \textwidth]{several_particles}
+            \caption{On the left, the path of different numbers of particles are shown. On the right, though there are som jumps in total energy, it is very close to conserved, giving confidence to the model.}
+            \label{several particles}
+
+        \end{figure}
+
+        \begin{figure}
+            
+            \includegraphics[width = \textwidth]{scatter}
+            \vspace{-30pt}
+            \caption{A scatter plot of the position of $50$ particles, each with $1000$ datapoints shown. Different particles have different collor, showing that the particles get mixed.}
+            \label{scatter}
+
+        \end{figure}
+
+        \paragraph*{}
+        Figure \ref{several particles} shows the simulation of particles with interactions implemented, as well as how the relative shifts in total energy in the total energy. It is evident that the system immediately becomes chaotic, and the ergodic hypothesis seems much more plausible. This becomes even clearer in figure \ref{scatter}, showing a scatter plot of the position of $50$ particles over a time $T = 1000$. 
+
 \end{document}
