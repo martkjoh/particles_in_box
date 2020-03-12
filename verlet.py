@@ -37,7 +37,7 @@ def evenVel(N):
 def allVelToOne(N):
     vel = np.zeros((2, N))
     theta, = np.random.uniform(-pi, pi, 1)
-    vel[:, 0] = np.array([cos(theta), sin(theta)]) * sqrt(N)
+    vel[:, 0] = np.array([cos(theta), sin(theta)])
     return vel
 
 def verletStep(x, F, dt):
