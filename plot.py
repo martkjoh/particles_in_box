@@ -2,7 +2,7 @@ import numpy as np
 from numpy import pi, sin, cos, sqrt
 from matplotlib import pyplot as plt
 from matplotlib import cm
-from physics import sumE, getEnergy, R, boltzDist
+from physics import R, boltzDist
 
 
 font = {'family' : 'serif', 
@@ -36,11 +36,14 @@ def plotRelTotE(E, T, dt, ax):
     ax.set_ylabel("$\Delta E / E(t)$")
 
 def plotVelDistrib(xt, k, ax):
-    vx, _ = xt[:, 1, :, k].T
-    ax.hist(vx, bins = 50, density = True)
+    vx = xt[:, 1, 0, k]
+    ax.hist(vx, bins = 15, density = True)
     vxCont = np.linspace(np.min(vx), np.max(vx), 100)
     f = boltzDist(xt)(vxCont)
-    ax.plot(vxCont, f)
+    ax.plot(vxCont, f, label = "Boltzmann dist.")
+    ax.set_xlabel("$v_x$")
+    ax.set_ylabel("Relative frequency")
+    
 
 def plotScatter(xt, k, ax, color = "b", title = ""):
     ax.scatter(xt[:, 0, 0, k], xt[:, 0, 1, k], color = color, alpha = 0.1)

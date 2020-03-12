@@ -3,7 +3,6 @@ from verlet import timeEvolve, allVelToOne, evenVel
 from misc import savex, loadx
 from plot import *
 from matplotlib import pyplot as plt
-from time import sleep
 
 def runSimulation(N, T, dt, name, velDist=evenVel, E = sumE):
     timeSteps = int(T/dt)
@@ -23,13 +22,13 @@ def task1():
         fig, ax = plt.subplots(1, 2, figsize = (14, 7))
         fig.suptitle("$\Delta t = {0:1.3f}$".format(dt))
         plotCircle(ax[0])
-        plotParticlePath(xt, ax[0], 0, color = cm.viridis(0.2), title = Position)
+        plotParticlePath(xt, ax[0], 0, color = cm.viridis(0.2), title = "Position")
         plotRelTotE(E, T, dt, ax[1])
 
         plt.tight_layout()
         plt.savefig("figs/"+name+".png")
 
-def task2():
+def task2a():
     Ns = [2, 5, 10]
     T = 50
     fig, ax = plt.subplots(3, 2, figsize = (14, 21))
@@ -84,12 +83,17 @@ def task2c():
     plt.tight_layout()
     plt.savefig("figs/" + name)
 
-task2c()
+def velDist():
+    # Data from scatter
+    name = "50_particles_time_1000"
 
+    fig, ax = plt.subplots( figsize = (12, 10))
 
-# velDistirbute
-# xAv = np.array([np.einsum("tijk -> tij", xt)]) / N
-# fig, ax = plt.subplots()
-# plotVelDistrib(xt, 0, ax)
+    xt, E, T, dt, N = loadx(name)
 
-# plt.show()
+    plotVelDistrib(xt, 0, ax)
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig("figs/vel_dist.png")
+
+velDist()
