@@ -3,7 +3,7 @@ from math import floor
 import os
 from physics import sumE
 
-def savex(xt, T, name):
+def savex(xt, T, name, E = sumE):
     path = "data/" + name + "/"
     if not os.path.exists(path):
         os.makedirs(path)
@@ -17,16 +17,16 @@ def savex(xt, T, name):
     steps = len(xt)
     N = len(xt[0, 0, 0])
 
-    E = np.empty((steps, N))
+    energy = np.empty((steps, N))
     for t in range(steps):
-        E[t] = sumE(xt[t])
+        energy[t] = E(xt[t])
     
     xt = np.reshape(xt, (steps, 4*N))
 
     header = "Time simulated, number of steps and number of particles"
 
     np.savetxt(path + "particles" + ".csv", xt)
-    np.savetxt(path + "energy" + ".csv", E)
+    np.savetxt(path + "energy" + ".csv", energy)
     np.savetxt(
         path + "parametres.csv", 
         [T, steps, N], 
@@ -49,4 +49,4 @@ def loadx(name):
     
     E = np.reshape(E, (steps, N))
     print("Loaded {} particles with {} steps".format(N, steps))
-    return np.reshape(xt, (steps, 2, 2, N)), E, T, dt, int(N)
+    return np.reshape(xt, (steps, 2, 2, N)), E, T, dt, N
