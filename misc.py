@@ -1,9 +1,8 @@
 import numpy as np
 from math import floor
 import os
-from physics import sumE
 
-def savex(xt, T, name, E = sumE):
+def savex(xt, T, name, E):
     path = "data/" + name + "/"
     if not os.path.exists(path):
         os.makedirs(path)
