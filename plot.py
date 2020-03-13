@@ -57,11 +57,11 @@ def plotEDist(E, T, ax):
     steps = len(E)
     t = np.linspace(0, T, steps)
     EAv = np.einsum("tk -> k", E[900:]) / N
-    ax[0].hist(E[0], bins = 20)
+    ax[0].hist(E[0], bins = 10)
     ax[0].set_title("$T = 0$")
     ax[0].set_xlabel("$E$")
     ax[0].set_ylabel("N")
-    ax[1].hist(E[-1], bins = 20)
+    ax[1].hist(E[-1], bins = 10)
     ax[1].set_title("Average, $T \in [90, 100]$")
     ax[1].set_xlabel("$E$")
     ax[1].set_ylabel("N")
@@ -69,7 +69,7 @@ def plotEDist(E, T, ax):
     plt.tight_layout()
 
 # TODO: kAv should always be one, but isn't. Fix this
-def plotPressure(xt, T, ax):
+def plotPressure(xt, T, ax, title = ""):
     steps = len(xt)
     N = len(xt[0, 0, 0])
 
@@ -85,5 +85,6 @@ def plotPressure(xt, T, ax):
 
     k = P*(pi*R**2)/temp/N
     kAv = np.sum(k) / steps
+    ax.set_title(title)
     ax.plot(t, k, label = "$P / T A$")
     ax.plot(t, kAv*np.ones(steps), label = "Average value = {:f}".format(kAv))

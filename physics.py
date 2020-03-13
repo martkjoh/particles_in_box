@@ -1,7 +1,7 @@
 import numpy as np
 from numpy import pi, sqrt, exp
 
-R = 5
+R = 4
 a = 0.8
 eps = 0.5
 K = 10
@@ -86,4 +86,4 @@ def boltzDist(xt):
 def pressure(x0):
     r = sqrt(dot(x0, x0))
     indx = r>R
-    return K*np.sum(r[indx] - R)
+    return K*np.sum(r[indx] - R) / (2 * pi * R)

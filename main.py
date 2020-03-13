@@ -103,22 +103,20 @@ def task2e(R, N):
     # dt = 0.01
 
     name = "{}_particles_R_{}".format(N, R)
-    name = "50_particles_time_1000"
 
     # runSimulation(N, T, dt, name)
 
     xt, _E, T, dt, N = loadx(name)
     _fig, ax = plt.subplots(figsize = (7, 7))
     
-    plotPressure(xt, T, ax)
+    title = "$N = {}$, $R = {}$".format(N, R) 
+    plotPressure(xt, T, ax, title = title)
 
     plt.legend()
     plt.tight_layout()
     plt.savefig("figs/pressure_" + name + ".png")
 
 # R needs to be to changed in physics.py
-
-task2e(0, 0)
 
 # task2e(2, 10)
 # task2e(2, 12)

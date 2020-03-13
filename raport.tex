@@ -88,4 +88,56 @@
         \paragraph*{}
         Figure \ref{several particles} shows the simulation of particles with interactions implemented, as well as how the relative shifts in total energy in the total energy. It is evident that the system immediately becomes chaotic, and the ergodic hypothesis seems much more plausible. This becomes even clearer in figure \ref{scatter}, showing a scatter plot of the position of $50$ particles over a time $T = 1000$. 
 
+        \begin{figure}
+
+            \includegraphics[width = \textwidth]{all_vel_to_one}
+            \caption{The velocity distribution at the start and at the end of the simulation. The kinetic energy has diffused throughout the system}
+            \label{kinetic energy}
+
+        \end{figure}
+
+        Even if only one particle is given velocity, and the rest is still at $t = 0$, the system quickly reaches equilibrium. This is showcased in figure \ref{kinetic energy}. 
+
+        \begin{figure*}
+            
+            \includegraphics[width = \textwidth]{vel_dist}
+            \caption{The noralized velocity distribution of the velocity distribution of one particle in a simulation with $N = 50$. The orange line is the Boltzmann distribution of the ensamble.}
+            \label{velocity dist}
+
+        \end{figure*}
+
+        \paragraph*{}
+        Even though with only $N=50$, the statistical properties of the system becom evident. Considering the system as a canonical ensamble, with temperature defined as
+        \begin{equation*}
+            T = 1/2 \expval{\vec \dot x^2},
+        \end{equation*}
+        a single particle will follow the Maxwell-Boltzmann velocity distribution
+        \begin{equation*}
+            P(x_i) = \sqrt{\frac{1}{2\pi T}}\exp \bigg[ -\frac{\dot x_i^2}{2T}\bigg].
+        \end{equation*}
+        This is shown in figur \ref{velocity dist}
+
+        \begin{figure*}
+        
+            \includegraphics[width = 0.5\textwidth]{pressure_10_particles_R_2}
+            \includegraphics[width = 0.5\textwidth]{pressure_12_particles_R_2}
+            \includegraphics[width = 0.5\textwidth]{pressure_20_particles_R_4}
+            \includegraphics[width = 0.5\textwidth]{pressure_25_particles_R_4}
+            \caption{Pressure divided by temperature and area, for differeent values of $N$ and $R$. The average of this value is close to $1$ for all simuations.}
+            \label{ideal gas}
+
+        \end{figure*}
+
+        Lastyly, the pressure on the wall is given By
+        \begin{equation*}
+            P = \sum_k \vec F_w^{k} \cdot \hat e_r / 2 \pi R = \sum_{r_k>R} K(r_k - R) / 2 \pi R
+        \end{equation*}
+        And ideal gas would fulfill
+        \begin{equation*}
+            \frac{p2\pi R}{N T} = 1
+        \end{equation*}
+        Figure \ref{ideal gas} shows this ratio for different simulation runs with different parameters, all of witch has average within $50\%$ of $1$. The ideal gas law can thus be used as a rough estimate for the system, but the radius of the particles ($a = 0.8$) cannot be completly neglected.
+
+
+
 \end{document}
