@@ -9,10 +9,11 @@
 \author{Martin Johnsrud}
 
 \begin{document}
+    \vspace{-80pt}
     \maketitle
     
     \section*{Introduction}
-    By numerically integrating Newtons equation of motion og many particles, confined to a box and interacting via the Leonard-Jones potential, it is possible to see the emergence of statistical behvior like the Maxwell-Boltzmann distribution. In this exercice, we explor this behavior, and ... (more to come)
+    By numerically integrating Newtons equation of motion og many particles, confined to a box and interacting via the Leonard-Jones potential, it is possible to see the emergence of statistical behvior This exercise uses verlet integration to simulated particles in a circular potential and investigates the accuracy of the numericall scheme, and emergent fenomena like ergodicity, the Maxwell-Boltzmann distribution and the ideal gas law.
 
     \section*{Single particel}
         A single particel with position $\vec x = (x_1, x_2)$ in a box is modeled in a potential 
@@ -31,12 +32,12 @@
                 0, & r<R.
             \end{cases}
         \end{equation*}
-        This equiations can the numerically integrated to simulate the trajectory of the particle. This project is done using verlet integration, 
+        This equiation can be numerically integrated to simulate the trajectory of the particle. This project is done using verlet integration, 
         \begin{align*} 
-            & \vec x(t + \Delta t) = \vec x(t) + \dot{\vec x}(t) \Delta t + \frac{1}{2} F\big(\vec x(t)\big) \Delta t \\
+            & \vec x(t + \Delta t) = \vec x(t) + \dot{\vec x}(t) \Delta t + \frac{1}{2} \Sigma F\big(\vec x(t)\big) \Delta t \\
             & \dot{\vec x}(t + \Delta t) = \dot{\vec x}(t) + \frac{1}{2} \Big[\Sigma \vec F\big(\vec x(t)\big) + \Sigma \vec F\big(\vec x(t + \Delta t)\big)\Big] \Delta t^2
         \end{align*}
-        Everything is done in units defined by the parametres $K, R$ and $\epsilon$, so that mass of the particle dissapears from the equations.
+        Everything is done in units defined by the parametres $K, R, k_b$ and $\epsilon$, so that constantsats dissapears from the equations.
 
         
         \begin{figure}            
@@ -49,11 +50,13 @@
         \end{figure}
 
         \paragraph*{}
-        Figure \ref{task 1} shows simulation series of one particle in a box, using different steplengths. The energy of the particle can be used to assess the accuracy of the particle. As there are noe dissipative forces, energy is conserved. Accurate simulations should then have very small changes in energy, $\delta E - E(0)$, relative the starting energy $E(0)$. This is plotted to the right in figure \ref{task 1}. $\Delta t = 0.01$ seems to yield sufficient accuracy, and wil be used throughout this exercise.
+        Figure \ref{task 1} shows simulation series of one particle in a box, using different steplengths. The energy of the particle can be used to assess the accuracy of the particle. As there are noe dissipative forces, energy is conserved. Accurate simulations should then have very small changes in energy, $\Delta E = E(t) - E(0)$, relative the starting energy $E(0)$. This is plotted to the right in figure \ref{task 1}. $\Delta t = 0.01$ seems to yield sufficient accuracy, and wil be used throughout this exercise.
+
+        When simulation only one particle, the system is not ergodic. Though the middle of the system is a valid spot for the particle to be, it will never reach it. By inspection of the figures, we see the probability distribution of the different points within the circle, where velocity will be constant, is not constant, and thus breaking the ergodic hypothesis.
         
 
     \section*{$N$ particles}
-        When moddeling $N$ particles $\{ \vec x_k\} = \{ (x_1^{(k)}, x_2^{(k)}) \}$, each one of them is subject to the force from the potential $V_w(\vec x_k)$, as well as a modified Leonard-Jones potential the interaction potential. The potential felt by particle $k$ is then
+        When moddeling $N$ particles $\{ \vec x_k\} = \{ (x_1^{(k)}, x_2^{(k)}) \}$, each one of them is subject to the force from the potential $V_w(\vec x_k)$, as well as a modified Leonard-Jones potential as an interaction potential. The potential felt by particle $k$ is
         \begin{equation*}
             V_k(\vec x_j) = 
             \sum_{r_{kj}<a}\epsilon \bigg[ \bigg( \frac{a}{r_{kj}}\bigg)^{12} - 2\bigg(\frac{a}{r_{kj}}\bigg)^{6} + 1 \bigg]
@@ -71,35 +74,38 @@
             
             \vspace{-16pt}
             \includegraphics[width = \textwidth]{several_particles}
-            \caption{On the left, the path of different numbers of particles are shown. On the right, though there are som jumps in total energy, it is very close to conserved, giving confidence to the model.}
+            \caption{On the left, the path of different numbers of particles are shown. Though there are some jumps in total energy, it is very close to conserved, giving confidence to the model.}
             \label{several particles}
 
         \end{figure}
 
         \begin{figure}
-            
-            \includegraphics[width = \textwidth]{scatter}
-            \vspace{-30pt}
+
+            \vspace{-60pt}
+            \centering
+            \includegraphics[width = 0.75\textwidth]{scatter}
+            \vspace{-25pt}
             \caption{A scatter plot of the position of $50$ particles, each with $1000$ datapoints shown. Different particles have different collor, showing that the particles get mixed.}
             \label{scatter}
 
         \end{figure}
-
-        \paragraph*{}
-        Figure \ref{several particles} shows the simulation of particles with interactions implemented, as well as how the relative shifts in total energy in the total energy. It is evident that the system immediately becomes chaotic, and the ergodic hypothesis seems much more plausible. This becomes even clearer in figure \ref{scatter}, showing a scatter plot of the position of $50$ particles over a time $T = 1000$. 
-
         \begin{figure}
 
-            \includegraphics[width = \textwidth]{all_vel_to_one}
+            \vspace{-20pt}
+            \centering
+            \includegraphics[width = 0.75\textwidth]{all_vel_to_one}
             \caption{The velocity distribution at the start and at the end of the simulation. The kinetic energy has diffused throughout the system}
             \label{kinetic energy}
 
         \end{figure}
 
+        \paragraph*{}
+        Figure \ref{several particles} shows the simulation of particles with interactions implemented, as well as how the relative shifts in total energy in the total energy. It is evident that the system immediately becomes chaotic, and the ergodic hypothesis seems much more plausible. This becomes even clearer in figure \ref{scatter}, showing a scatter plot of the position of $50$ particles over a time $T = 1000$. 
         Even if only one particle is given velocity, and the rest is still at $t = 0$, the system quickly reaches equilibrium. This is showcased in figure \ref{kinetic energy}. 
 
         \begin{figure*}
-            
+
+            \centering
             \includegraphics[width = \textwidth]{vel_dist}
             \caption{The noralized velocity distribution of the velocity distribution of one particle in a simulation with $N = 50$. The orange line is the Boltzmann distribution of the ensamble.}
             \label{velocity dist}
@@ -109,16 +115,16 @@
         \paragraph*{}
         Even though with only $N=50$, the statistical properties of the system becom evident. Considering the system as a canonical ensamble, with temperature defined as
         \begin{equation*}
-            T = 1/2 \expval{\vec \dot x^2},
+            T = 1/2 \expval{\dot \vec x^2},
         \end{equation*}
         a single particle will follow the Maxwell-Boltzmann velocity distribution
         \begin{equation*}
-            P(x_i) = \sqrt{\frac{1}{2\pi T}}\exp \bigg[ -\frac{\dot x_i^2}{2T}\bigg].
+            P(\dot x_i) = \sqrt{\frac{1}{2\pi T}}\exp \bigg[ -\frac{\dot x_i^2}{2T}\bigg].
         \end{equation*}
         This is shown in figur \ref{velocity dist}
 
-        \begin{figure*}
-        
+        \begin{figure*}[!b]
+
             \includegraphics[width = 0.5\textwidth]{pressure_10_particles_R_2}
             \includegraphics[width = 0.5\textwidth]{pressure_12_particles_R_2}
             \includegraphics[width = 0.5\textwidth]{pressure_20_particles_R_4}
@@ -128,7 +134,7 @@
 
         \end{figure*}
 
-        Lastyly, the pressure on the wall is given By
+        Lastly, the pressure on the wall is given By
         \begin{equation*}
             P = \sum_k \vec F_w^{k} \cdot \hat e_r / 2 \pi R = \sum_{r_k>R} K(r_k - R) / 2 \pi R
         \end{equation*}
