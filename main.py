@@ -1,4 +1,4 @@
-from physics import sumF, F_w, temp, sumE, E_k
+from physics import sumF, F_w, getTemp, sumE, E_k
 from verlet import timeEvolve, allVelToOne, evenVel
 from misc import savex, loadx
 from plot import *
@@ -50,7 +50,7 @@ def task2a():
     plt.tight_layout()
     plt.savefig("figs/several_particles.png")
 
-def scatter():
+def task2b():
     fig, ax = plt.subplots(figsize = (10, 10))
     N = 50
     T = 1000
@@ -83,7 +83,7 @@ def task2c():
     plt.tight_layout()
     plt.savefig("figs/" + name)
 
-def velDist():
+def task2d():
     # Data from scatter
     name = "50_particles_time_1000"
 
@@ -96,4 +96,31 @@ def velDist():
     plt.tight_layout()
     plt.savefig("figs/vel_dist.png")
 
-velDist()
+def task2e(R, N):
+    # Data from scatter
+
+    # T = 200
+    # dt = 0.01
+
+    name = "{}_particles_R_{}".format(N, R)
+    name = "50_particles_time_1000"
+
+    # runSimulation(N, T, dt, name)
+
+    xt, _E, T, dt, N = loadx(name)
+    _fig, ax = plt.subplots(figsize = (7, 7))
+    
+    plotPressure(xt, T, ax)
+
+    plt.legend()
+    plt.tight_layout()
+    plt.savefig("figs/pressure_" + name + ".png")
+
+# R needs to be to changed in physics.py
+
+task2e(0, 0)
+
+# task2e(2, 10)
+# task2e(2, 12)
+# task2e(4, 20)
+# task2e(4, 25)

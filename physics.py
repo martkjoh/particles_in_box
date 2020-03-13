@@ -69,7 +69,7 @@ def sumF(x0):
         f1[:, k] += F_i(k, x0)
     return f1
 
-def temp(x):
+def getTemp(x):
     v2 = x[1, 1]**2 + x[1, 0]**2
     v2Av = np.sum(v2) / len(v2)
     return v2Av/2
@@ -78,7 +78,12 @@ def boltzDist(xt):
     T = 0
     N = len(xt)
     for i in range(N):
-        T += temp(xt[i])
+        T += getTemp(xt[i])
     T = T/N
     C = 1 / sqrt(2*pi*T)
     return lambda x: C*exp(-x**2/(2*T))
+
+def pressure(x0):
+    r = sqrt(dot(x0, x0))
+    indx = r>R
+    return K*np.sum(r[indx] - R)

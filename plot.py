@@ -2,7 +2,7 @@ import numpy as np
 from numpy import pi, sin, cos, sqrt
 from matplotlib import pyplot as plt
 from matplotlib import cm
-from physics import R, boltzDist
+from physics import R, boltzDist, pressure, getTemp
 
 
 font = {'family' : 'serif', 
@@ -53,6 +53,7 @@ def plotScatter(xt, k, ax, color = "b", title = ""):
 
 def plotEDist(E, T, ax):
     N = len(E[0])
+ 
     steps = len(E)
     t = np.linspace(0, T, steps)
     EAv = np.einsum("tk -> k", E[900:]) / N
@@ -66,3 +67,23 @@ def plotEDist(E, T, ax):
     ax[1].set_ylabel("N")
 
     plt.tight_layout()
+
+# TODO: kAv should always be one, but isn't. Fix this
+def plotPressure(xt, T, ax):
+    steps = len(xt)
+    N = len(xt[0, 0, 0])
+
+    P = np.empty(steps)
+    temp = 0
+    for t in range(steps):
+        P[t] = pressure(xt[t, 0])
+        temp += getTemp(xt[t])
+    
+    temp = temp/steps
+
+    t = np.linspace(0, T, steps)
+
+    k = P*(pi*R**2)/temp/N
+    kAv = np.sum(k) / steps
+    ax.plot(t, k, label = "$P / T A$")
+    ax.plot(t, kAv*np.ones(steps), label = "Average value = {:f}".format(kAv))
